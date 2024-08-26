@@ -72,6 +72,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             } else {
                 user.setPassword(existingUser.getPassword());
             }
+        } else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         user.setRoles(roleService.getSetOfRoles(roles));
         userDao.save(user);
