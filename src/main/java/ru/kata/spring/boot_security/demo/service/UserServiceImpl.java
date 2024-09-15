@@ -67,7 +67,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public void saveUser(User user, Set<String> roles) {
         if (user.getId() != null) {
             User existingUser = findUserById(user.getId());
-            if (!bCryptPasswordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+            if (!bCryptPasswordEncoder.matches(user.getPassword(), existingUser.getPassword())
+                    && !(user.getPassword().equals(existingUser.getPassword()))) {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             } else {
                 user.setPassword(existingUser.getPassword());
